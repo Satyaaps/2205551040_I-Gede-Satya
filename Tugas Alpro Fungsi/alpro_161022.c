@@ -113,8 +113,9 @@ do{
     else if(kondisi == 2){
         aritmatika();
     }
-    }
-    printf("\n\t\t\tApakah ingin mengulang program? (y/t)\n>> ");
+}
+    printf("\n\t\t\tApakah ingin mengulang program? (y/t)\n ");
+    printf("\t\t\t>>");
     scanf("%s", &huruf);
     system("cls");
         
