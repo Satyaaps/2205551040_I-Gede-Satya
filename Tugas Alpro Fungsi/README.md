@@ -7,6 +7,7 @@ Fungsi atau function adalah kode program yang dirancang untuk menyelesaikan sebu
 
 Program dibawah ini menggunakan program yang sebelumnya sudah dikumpulkan di oase sesuai arahan dosen kami.
 Program dibawah berisikan operasi bilangan menghitung keliling serta luas persegi dan operasi bilangan deret aritmatika dengan mengubah seluruh tipe data menajdi fungsi.
+
 berikut program saya...
 
 ![Screenshot (24)](https://user-images.githubusercontent.com/114044303/196040620-c7e8cb6b-a01d-41b0-930c-84e92e1f9e1f.png)
