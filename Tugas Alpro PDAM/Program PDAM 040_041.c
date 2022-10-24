@@ -1,6 +1,10 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
+#include <time.h>
+
+#define tempo 20
+#define DENDA 10000
 
 void kpa(), kpb(), kpc(), kpd(), kpe(), kpf(), kpg(), kph();
 void annb1(), annb2(), anntb1(), anntb2();
@@ -29,28 +33,47 @@ void cover(){
     printf("\t\t\t======================================================\n");
 }
 
-void notaTagihan(char *nama, char *alamat, char *golongan, char *jenis_pelanggan, float adm, float bpm, float denda, float pemakaian, float biaya, float total){
-        // system("cls");
-        printf("\t\t\t======================================================\n");
-        printf("\t\t\t||           Program Tagihan Rekening Air           ||\n");
-        printf("\t\t\t||        Algoritma dan Pemrograman kelas B         ||\n");
-        printf("\t\t\t||__________________________________________________||\n");
-        printf("\t\t\t||                   NOTA TAGIHAN                   ||\n");
-        printf("\t\t\t======================================================\n");
+void notaTagihan(char *nama, char *alamat, char *golongan, char *jenis_pelanggan, float adm, float bpm,  float pemakaian, float biaya, float total){
+
+        time_t t;
+        t = time(NULL);
+        struct tm tm = *localtime(&t);
+        float denda;
+        float denda1;
+        float finaltotal;
+        denda = tm.tm_mday - tempo;
+        if ((denda)<= 0){ 
+            denda1 = denda + 0;
+        }
+        else if((denda) <=10){ 
+            denda1 = DENDA;
+        }
+        finaltotal = biaya + denda1;
+        
+        system("cls");
+        printf("\t\t\t===========================================================\n");
+        printf("\t\t\t||              Program Tagihan Rekening Air             ||\n");
+        printf("\t\t\t||           Algoritma dan Pemrograman kelas B           ||\n");
+        printf("\t\t\t||_______________________________________________________||\n");
+        printf("\t\t\t||                      NOTA TAGIHAN                     ||\n");
+        printf("\t\t\t===========================================================\n");
         printf("\t\t\t|| Nama            : %s\n", nama);
         printf("\t\t\t|| Alamat          : %s\n", alamat);
         printf("\t\t\t|| Kelompok        : %s\n", jenis_pelanggan);
         printf("\t\t\t|| Golongan        : %s\n", golongan);
-        printf("\t\t\t|| Tanggal         : %d\n");
+        printf("\t\t\t|| Tanggal         : %d-%d-%d\n", tm.tm_mday, tm.tm_mon+1, tm.tm_year+1900);
+        printf("\t\t\t|| Jatuh Tempo     : %d-%d-%d\n", tempo, tm.tm_mon+1, tm.tm_year+1900);
         printf("\t\t\t|| Pemakaian       : %.2f m3\n", pemakaian);
-        printf("\t\t\t======================================================\n");
+        printf("\t\t\t===========================================================\n");
         printf("\t\t\t|| Biaya Pemakaian : Rp. %.2f\n", total);
         printf("\t\t\t|| Administrasi    : RP. %.2f\n", adm);
         printf("\t\t\t|| Pemeliharaan    : Rp. %.2f\n", bpm);
-        printf("\t\t\t|| Denda           : Rp. %.2f\n", denda);
-        printf("\t\t\t======================================================\n");
-        printf("\t\t\t|| Total           : Rp. %.2f\n", biaya);
-        printf("\t\t\t======================================================\n");
+        printf("\t\t\t|| Denda           : Rp. %.2f\n", denda1);
+        printf("\t\t\t===========================================================\n");
+        printf("\t\t\t|| Total           : Rp. %.2f\n", finaltotal);
+        printf("\t\t\t===========================================================\n");
+        system("pause");
+        mengulang();
 }
 
 void mengulang(){
@@ -519,12 +542,11 @@ void annb1(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 17800;
+            total = 17800;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 2060;
@@ -532,8 +554,8 @@ void annb1(){
         else if(pemakaian >20){
             total = pemakaian * 5880;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void annb2(){
     system("cls");
@@ -554,12 +576,11 @@ void annb2(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 20600;
+           total = 20600;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 2340;
@@ -567,8 +588,8 @@ void annb2(){
         else if(pemakaian >20){
             total = pemakaian * 5940;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void anntb1(){
     system("cls");
@@ -589,12 +610,11 @@ void anntb1(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 63400;
+           total = 63400;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 9200;
@@ -602,8 +622,8 @@ void anntb1(){
         else if(pemakaian >20){
             total = pemakaian * 9600;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);    
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);    
 }
 void anntb2(){
     system("cls");
@@ -624,12 +644,11 @@ void anntb2(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 64200;
+           total = 64200;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 9350;
@@ -637,8 +656,8 @@ void anntb2(){
         else if(pemakaian >20){
             total = pemakaian * 5650;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 
 void bnnb1(){
@@ -660,12 +679,11 @@ void bnnb1(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 23400;
+           total = 23400;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 2620;
@@ -673,8 +691,8 @@ void bnnb1(){
         else if(pemakaian >20){
             total = pemakaian * 6000;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void bnnb2(){
     system("cls");
@@ -695,12 +713,11 @@ void bnnb2(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 26200;
+           total = 26200;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 2900;
@@ -708,8 +725,8 @@ void bnnb2(){
         else if(pemakaian >20){
             total = pemakaian * 6060;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void bnntb1(){
     system("cls");
@@ -730,12 +747,11 @@ void bnntb1(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 64900;
+           total = 64900;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 9500;
@@ -743,8 +759,8 @@ void bnntb1(){
         else if(pemakaian >20){
             total = pemakaian * 9800;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total); 
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total); 
 }
 void bnntb2(){
     system("cls");
@@ -765,12 +781,11 @@ void bnntb2(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 65700;
+           total = 65700;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 9650;
@@ -778,8 +793,8 @@ void bnntb2(){
         else if(pemakaian >20){
             total = pemakaian * 9950;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total); 
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total); 
 }
 
 void cnnb1(){
@@ -801,12 +816,11 @@ void cnnb1(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 29000;
+           total = 29000;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 3180;
@@ -814,8 +828,8 @@ void cnnb1(){
         else if(pemakaian >20){
             total = pemakaian * 6120;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void cnnb2(){
     system("cls");
@@ -836,12 +850,11 @@ void cnnb2(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 31800;
+           total = 31800;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 3460;
@@ -849,8 +862,8 @@ void cnnb2(){
         else if(pemakaian >20){
             total = pemakaian * 6180;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void cnntb1(){
     system("cls");
@@ -871,12 +884,11 @@ void cnntb1(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 66400;
+           total = 66400;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 9800;
@@ -884,8 +896,8 @@ void cnntb1(){
         else if(pemakaian >20){
             total = pemakaian * 10100;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total); 
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total); 
 }
 void cnntb2(){
     system("cls");
@@ -906,12 +918,11 @@ void cnntb2(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 67200;
+           total = 67200;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 9950;
@@ -919,8 +930,8 @@ void cnntb2(){
         else if(pemakaian >20){
             total = pemakaian * 10250;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total); 
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total); 
 }
 
 void dnnb1(){
@@ -942,12 +953,11 @@ void dnnb1(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 34600;
+           total = 34600;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 3740;
@@ -955,8 +965,8 @@ void dnnb1(){
         else if(pemakaian >20){
             total = pemakaian * 6240;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void dnnb2(){
     system("cls");
@@ -977,12 +987,11 @@ void dnnb2(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 37400;
+           total = 37400;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 4020;
@@ -990,8 +999,8 @@ void dnnb2(){
         else if(pemakaian >20){
             total = pemakaian * 6300;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void dnntb1(){
     system("cls");
@@ -1012,12 +1021,11 @@ void dnntb1(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 67900;
+           total = 67900;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 10100;
@@ -1025,8 +1033,8 @@ void dnntb1(){
         else if(pemakaian >20){
             total = pemakaian * 10400;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total); 
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total); 
 }
 void dnntb2(){
     system("cls");
@@ -1047,12 +1055,11 @@ void dnntb2(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 68700;
+           total = 68700;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 10250;
@@ -1060,8 +1067,8 @@ void dnntb2(){
         else if(pemakaian >20){
             total = pemakaian * 10555;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total); 
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total); 
 }
 
 void ennb1(){
@@ -1083,12 +1090,11 @@ void ennb1(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 69400;
+           total = 69400;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 10400;
@@ -1096,8 +1102,8 @@ void ennb1(){
         else if(pemakaian >20){
             total = pemakaian * 10700;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void ennb2(){
     system("cls");
@@ -1118,12 +1124,11 @@ void ennb2(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 70200;
+           total = 70200;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 10550;
@@ -1131,8 +1136,8 @@ void ennb2(){
         else if(pemakaian >20){
             total = pemakaian * 10850;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void enntb1(){
     system("cls");
@@ -1153,12 +1158,11 @@ void enntb1(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 70900;
+           total = 70900;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 10700;
@@ -1166,8 +1170,8 @@ void enntb1(){
         else if(pemakaian >20){
             total = pemakaian * 11000;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total); 
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total); 
 }
 void enntb2(){
     system("cls");
@@ -1188,12 +1192,11 @@ void enntb2(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 71700;
+           total = 71700;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 10850;
@@ -1201,8 +1204,8 @@ void enntb2(){
         else if(pemakaian >20){
             total = pemakaian * 11150;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total); 
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total); 
 }
 
 void fnnb1(){
@@ -1224,12 +1227,11 @@ void fnnb1(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 92000;
+           total = 92000;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 9850;
@@ -1237,8 +1239,8 @@ void fnnb1(){
         else if(pemakaian >20){
             total = pemakaian * 10950;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void fnnb2(){
     system("cls");
@@ -1259,12 +1261,11 @@ void fnnb2(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 95000;
+           total = 95000;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 10150;
@@ -1272,8 +1273,8 @@ void fnnb2(){
         else if(pemakaian >20){
             total = pemakaian * 11250;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void fnntb1(){
     system("cls");
@@ -1294,12 +1295,11 @@ void fnntb1(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 98000;
+           total = 98000;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 10450;
@@ -1307,8 +1307,8 @@ void fnntb1(){
         else if(pemakaian >20){
             total = pemakaian * 11550;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void fnntb2(){
     system("cls");
@@ -1329,12 +1329,11 @@ void fnntb2(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 101000;
+           total = 101000;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 10750;
@@ -1342,8 +1341,8 @@ void fnntb2(){
         else if(pemakaian >20){
             total = pemakaian * 11850;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 
 void gnnb1(){
@@ -1365,12 +1364,11 @@ void gnnb1(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 104000;
+           total = 104000;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 11050;
@@ -1378,8 +1376,8 @@ void gnnb1(){
         else if(pemakaian >20){
             total = pemakaian * 12150;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void gnnb2(){
     system("cls");
@@ -1400,12 +1398,11 @@ void gnnb2(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 107000;
+           total = 107000;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 11350;
@@ -1413,8 +1410,8 @@ void gnnb2(){
         else if(pemakaian >20){
             total = pemakaian * 12550;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void gnntb1(){
     system("cls");
@@ -1435,12 +1432,11 @@ void gnntb1(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 110000;
+           total = 110000;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 11650;
@@ -1448,8 +1444,8 @@ void gnntb1(){
         else if(pemakaian >20){
             total = pemakaian * 13150;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void gnntb2(){
     system("cls");
@@ -1470,12 +1466,11 @@ void gnntb2(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 113000;
+           total = 113000;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 11950;
@@ -1483,8 +1478,8 @@ void gnntb2(){
         else if(pemakaian >20){
             total = pemakaian * 13950;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 
 void hnnb1(){
@@ -1506,12 +1501,11 @@ void hnnb1(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 116000;
+           total = 116000;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 12250;
@@ -1519,8 +1513,8 @@ void hnnb1(){
         else if(pemakaian >20){
             total = pemakaian * 14750;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void hnnb2(){
     system("cls");
@@ -1541,12 +1535,11 @@ void hnnb2(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 119000;
+           total = 119000;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 12550;
@@ -1554,8 +1547,8 @@ void hnnb2(){
         else if(pemakaian >20){
             total = pemakaian * 15050;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void hnntb1(){
     system("cls");
@@ -1576,12 +1569,11 @@ void hnntb1(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 122000;
+           total = 122000;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 12850;
@@ -1589,8 +1581,8 @@ void hnntb1(){
         else if(pemakaian >20){
             total = pemakaian * 15850;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 void hnntb2(){
     system("cls");
@@ -1611,12 +1603,11 @@ void hnntb2(){
         printf("\t\t\t|| Pemakaian bulan lalu : "); scanf("%f", &pemakaianbulanlalu);
         printf("\t\t\t|| Pemakaian bulan ini  : "); scanf("%f", &pemakaianbulanini);
         printf("\t\t\t======================================================\n");
-        denda = 0;
         bpm = 5000;
         adm = 2000;
         pemakaian = pemakaianbulanini-pemakaianbulanlalu;
         if((pemakaian) > 0 && (pemakaian)<=10){
-            total = pemakaian = 125000;
+           total = 125000;
         }
         else if((pemakaian) >10 && (pemakaian)<=20){
             total = pemakaian * 13150;
@@ -1624,8 +1615,8 @@ void hnntb2(){
         else if(pemakaian >20){
             total = pemakaian * 16650;
         }
-        biaya = total + denda + adm + bpm;
-        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, denda, pemakaian, biaya, total);
+        biaya = total + adm + bpm;
+        notaTagihan(nama, alamat, golongan, jenis_pelanggan, adm, bpm, pemakaian, biaya, total);
 }
 
 int main(){
@@ -1638,8 +1629,4 @@ int main(){
     system("pause");
     system("cls");
 
-    mengulang();
-    system("pause");
-    system("cls");
-    return 0;
 }
